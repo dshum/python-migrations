@@ -54,3 +54,7 @@ def execute_query(connection, query):
         print("Query executed successfully")
     except psycopg2.OperationalError as e:
         print(f"The error '{e}' occurred")
+
+
+def migration_query(name: str):
+    return f"INSERT INTO migrations (migration, batch) VALUES ('{name}', (SELECT max(batch) + 1 FROM migrations));"

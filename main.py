@@ -1,7 +1,9 @@
+import traceback
+
 import click
 
-from init import Config, CommandCLI, pass_config
-from utils import db, colors
+from init import CommandCLI, Migration
+from utils import colors
 
 
 @click.group()
@@ -9,17 +11,7 @@ def cli():
     pass
 
 
-class Migration(object):
-    def __init__(self):
-        self.config = Config()
-        if self.config.CONNECTION == "prod":
-            db.create_ssh_tunnel(**self.config.ssh_tunnel_args())
-
-        self.connection = db.create_connection(**self.config.db_args())
-        self.databases = db.get_databases(self.connection)
-
-
-@cli.command(name="migrate", cls=CommandCLI)
+@cli.command(cls=CommandCLI)
 @click.pass_context
 def migrate(ctx):
     ctx.obj = Migration()
@@ -30,3 +22,4 @@ if __name__ == '__main__':
         cli()
     except Exception as e:
         colors.error(e)
+        # traceback.print_exception(e)

@@ -12,6 +12,12 @@ Go inside folder:
 cd python-migrations
 ```
 
+Copy .env.example and edit .env file:
+
+```commandline
+cp .env.example .env
+```
+
 Create virtual environment and activate it:
 
 ```commandline
