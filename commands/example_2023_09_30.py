@@ -15,10 +15,9 @@ def select_employees(connection):
 @click.command()
 @click.pass_context
 def cli(ctx):
-    config = ctx.obj["config"]
-    migration = ctx.obj["migration"]
+    migration = ctx.obj
 
-    db_args = config.db_args()
+    db_args = migration.config.db_args()
 
     for database in migration.databases:
         try:
