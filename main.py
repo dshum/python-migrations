@@ -3,7 +3,7 @@ import traceback
 import click
 
 from init import CommandCLI, Migration
-from utils import colors
+from utils.style import console
 
 
 @click.group()
@@ -20,6 +20,6 @@ def migrate(ctx):
 if __name__ == '__main__':
     try:
         cli()
-    except Exception as e:
-        colors.error(e)
-        # traceback.print_exception(e)
+        console.print("Done", style="success")
+    except Exception:
+        console.print_exception(show_locals=True)
