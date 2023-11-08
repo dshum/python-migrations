@@ -35,22 +35,22 @@ def get_databases(connection):
     return [database[0] for database in databases]
 
 
-def execute_read_query(connection, query):
+def execute_read_query(connection, query, params: tuple = ()):
     cursor = connection.cursor()
     result = None
     try:
-        cursor.execute(query)
+        cursor.execute(query, params)
         result = cursor.fetchall()
         return result
     except psycopg2.OperationalError as e:
         print(f"The error '{e}' occurred")
 
 
-def execute_query(connection, query):
+def execute_query(connection, query, params: tuple = ()):
     connection.autocommit = True
     cursor = connection.cursor()
     try:
-        cursor.execute(query)
+        cursor.execute(query, params)
         print("Query executed successfully")
     except psycopg2.OperationalError as e:
         print(f"The error '{e}' occurred")
