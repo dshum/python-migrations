@@ -17,6 +17,8 @@ class Config(object):
     DB_HOST = os.getenv(PREFIX + "DB_HOST", "127.0.0.1")
     DB_PORT = os.getenv(PREFIX + "DB_PORT", "5432")
 
+    BRANDS_DB_NAME = "brands"
+
     SSH_HOST = os.getenv("SSH_HOST")
     REMOTE_DB_HOST = os.getenv("REMOTE_DB_HOST")
     REMOTE_DB_PORT = os.getenv("REMOTE_DB_PORT")
@@ -25,6 +27,15 @@ class Config(object):
     def db_args(self):
         return {
             "db_name": self.DB_NAME,
+            "db_user": self.DB_USER,
+            "db_password": self.DB_PASSWORD,
+            "db_host": self.DB_HOST,
+            "db_port": self.DB_PORT,
+        }
+
+    def brands_db_args(self):
+        return {
+            "db_name": self.BRANDS_DB_NAME,
             "db_user": self.DB_USER,
             "db_password": self.DB_PASSWORD,
             "db_host": self.DB_HOST,
@@ -48,6 +59,9 @@ class Migration(object):
 
         self.connection = db.create_connection(**self.config.db_args())
         self.databases = db.get_databases(self.connection)
+
+        brands_connection = db.create_connection(**self.config.brands_db_args())
+        self.brands = db.get_brands(brands_connection)
 
 
 class CommandCLI(click.MultiCommand):

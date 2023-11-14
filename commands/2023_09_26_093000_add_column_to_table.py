@@ -1,8 +1,8 @@
 import click
 
 from init import pass_migration
-from utils.style import console
 from utils import db
+from utils.style import console
 
 
 def run_migration(connection):

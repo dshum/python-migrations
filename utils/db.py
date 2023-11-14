@@ -2,6 +2,8 @@ import os
 
 import psycopg2
 
+from init import Config
+
 exclude_databases = ", ".join((
     "assets", "brands", "cms", "controlcenter", "cron", "metabase",
     "mt5_henry", "mt5_henry_backup", "mt5_migrations",
@@ -27,12 +29,25 @@ def create_connection(db_name, db_user, db_password, db_host, db_port):
     )
 
 
+def get_db_connection(config: Config, db_name: str):
+    db_args = config.db_args()
+    db_args.update({"db_name": db_name})
+    return create_connection(**db_args)
+
+
 def get_databases(connection):
     select_databases = (f"SELECT datname FROM pg_database "
                         f"WHERE datname <> ALL ('{{{exclude_databases}}}') "
                         f"ORDER BY datname;")
     databases = execute_read_query(connection, select_databases)
     return [database[0] for database in databases]
+
+
+def get_brands(connection):
+    query = "SELECT name, hosts, db_name, fin_group FROM brands ORDER BY name;"
+    return execute_read_query(connection, query)
+    # return [{"name": brand[0], "hosts": brand[1], "db_name": brand[2], "fin_group": brand[3]}
+    #         for brand in brands]
 
 
 def execute_read_query(connection, query, params: tuple = ()):
