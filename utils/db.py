@@ -2,7 +2,7 @@ import os
 
 import psycopg2
 
-from init import Config
+from config import Config
 
 exclude_databases = ", ".join((
     "assets", "brands", "cms", "controlcenter", "cron", "metabase",
@@ -14,6 +14,7 @@ exclude_databases = ", ".join((
 
 
 def create_ssh_tunnel(ssh_host, remote_db_host, remote_db_port, ssh_key):
+    print(remote_db_port)
     os.system(f"kill $(lsof -t -i:{remote_db_port})")
     os.system(f"sudo lsof -i -P -n | grep {remote_db_port}")
     os.system(f"ssh -f -N -i {ssh_key} {ssh_host} -L {remote_db_port}:{remote_db_host}")
