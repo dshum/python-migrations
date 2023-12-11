@@ -2,7 +2,7 @@ import os
 import csv
 import click
 
-from init import pass_migration
+from context import pass_context
 from utils import db
 from utils.style import console
 
@@ -26,15 +26,15 @@ def write_csv(country_stat: dict):
 
 
 @click.command()
-@pass_migration
-def cli(migration):
+@pass_context
+def cli(context):
     os.system("clear")
 
-    db_args = migration.config.db_args()
+    db_args = context.config.db_args()
     country_stat = {}
     existed_db_names = []
 
-    for name, hosts, db_name, fin_group in migration.brands:
+    for name, hosts, db_name, fin_group in context.brands:
         try:
             console.print(name, style="info")
 
@@ -44,7 +44,7 @@ def cli(migration):
 
             existed_db_names.append(db_name)
 
-            conn = db.get_db_connection(migration.config, db_name)
+            conn = db.get_db_connection(context.config, db_name)
             countries = get_countries(conn)
 
             if fin_group not in country_stat:

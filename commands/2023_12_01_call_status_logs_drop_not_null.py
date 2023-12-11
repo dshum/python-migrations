@@ -1,6 +1,6 @@
 import click
 
-from init import pass_migration
+from context import pass_context
 from utils import db
 from utils.style import console
 
@@ -13,12 +13,12 @@ def run_migration(connection):
 
 
 @click.command()
-@pass_migration
-def cli(migration):
-    for database in migration.databases:
+@pass_context
+def cli(context):
+    for database in context.databases:
         try:
             console.print(database, style="info")
-            conn = db.get_db_connection(migration.config, database)
+            conn = db.get_db_connection(context.config, database)
             run_migration(conn)
         except Exception as e:
             console.print(e, style="error")

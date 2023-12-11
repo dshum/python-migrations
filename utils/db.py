@@ -13,7 +13,7 @@ exclude_databases = ", ".join((
 ))
 
 
-def create_ssh_tunnel(ssh_host, remote_db_host, remote_db_port, ssh_key):
+def create_ssh_connection(ssh_host, remote_db_host, remote_db_port, ssh_key):
     print(remote_db_port)
     os.system(f"kill $(lsof -t -i:{remote_db_port})")
     os.system(f"sudo lsof -i -P -n | grep {remote_db_port}")
@@ -51,7 +51,7 @@ def get_brands(connection):
     #         for brand in brands]
 
 
-def execute_read_query(connection, query, params: tuple = ()):
+def execute_read_query(connection, query, params: tuple = None):
     cursor = connection.cursor()
     result = None
     try:

@@ -1,6 +1,6 @@
 import click
 
-from init import pass_migration
+from context import pass_context
 from utils import db
 from utils.style import console
 
@@ -17,11 +17,11 @@ def run_migration(connection):
 
 
 @click.command()
-@pass_migration
-def cli(migration):
-    db_args = migration.config.db_args()
+@pass_context
+def cli(context):
+    db_args = context.config.db_args()
 
-    for database in migration.databases:
+    for database in context.databases:
         try:
             console.print(database, style="info")
             db_args.update({"db_name": database})
