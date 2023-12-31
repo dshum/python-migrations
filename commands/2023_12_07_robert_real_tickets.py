@@ -6,6 +6,8 @@ from context import pass_context
 from utils import db
 from utils.style import console
 
+CSV_FILE_NAME = "robert_november_deposits.csv"
+
 
 def get_tickets(connection):
     query = ("select tickets.id, tickets.type, tickets.status, "
@@ -22,6 +24,7 @@ def get_tickets(connection):
              "and tickets.mt5_type not in (3, 6) "
              "and tickets.usd_value > 0 and tickets.usd_value < 1e16 "
              "and tickets.created_at >= '2023-11-01' and tickets.created_at < '2023-12-01' "
+             "and tickets.deleted_at IS NULL "
              "order by tickets.id desc;")
     return db.execute_read_query(connection, query)
 
@@ -40,12 +43,13 @@ def get_tickets_v1(connection):
              "and tickets.method not in ('Manual', 'Bonus', 'Credit', 'Qiwi') "
              "and tickets.usd_value > 0 and tickets.usd_value < 1e16 "
              "and tickets.created_at >= '2023-11-01' and tickets.created_at < '2023-12-01' "
+             "and tickets.deleted_at IS NULL "
              "order by tickets.id desc;")
     return db.execute_read_query(connection, query)
 
 
 def write_csv(name: str, hosts: str, tickets: dict):
-    with open("robert_november_deposits.csv", "a") as f:
+    with open(CSV_FILE_NAME, "a") as f:
         writer = csv.writer(f)
         writer.writerow((name, hosts, f"{len(tickets)} tickets"))
         writer.writerow(("id", "type", "status", "value", "usd_value", "method",
