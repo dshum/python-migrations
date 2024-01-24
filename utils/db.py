@@ -62,7 +62,7 @@ def execute_read_query(connection, query, params: tuple = None):
         print(f"The error '{e}' occurred")
 
 
-def execute_query(connection, query, params: tuple = ()):
+def execute_query(connection, query, params: tuple = None):
     connection.autocommit = True
     cursor = connection.cursor()
     try:

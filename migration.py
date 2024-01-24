@@ -26,6 +26,7 @@ class MigrationCLI(click.MultiCommand):
                     db.execute_query(conn, query)
             except Exception as e:
                 console.print(e, style="error")
+                console.print_exception(show_locals=True)
 
     def list_commands(self, ctx):
         rv = []
