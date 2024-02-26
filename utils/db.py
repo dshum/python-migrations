@@ -7,7 +7,7 @@ from config import Config
 exclude_databases = ", ".join((
     "assets", "brands", "cms", "controlcenter", "cron", "metabase",
     "mt5_henry", "mt5_henry_backup", "mt5_migrations",
-    "mt5_xclusive", "mt5_zanx", "mt5_zanx2", "mt53",
+    "mt5_xclusive", "mt5_zanx", "mt5_zanx2", "mt53", "mt5_henry2",
     "positions_watcher", "postgres", "productiondb", "retool", "rdsadmin",
     "statistics", "template0", "template1", "wiki",
 ))
