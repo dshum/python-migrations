@@ -1,0 +1,23 @@
+[project]
+name = "python-migrations"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "Denis Shumeev", email = "denis-shumeev@yandex.ru"},
+]
+dependencies = [
+    "click==8.1.7",
+    "markdown-it-py==3.0.0",
+    "mdurl==0.1.2",
+    "Pygments==2.16.1",
+    "python-dotenv==1.0.0",
+    "rich==13.6.0",
+    "psycopg2-binary>=2.9.9",
+]
+requires-python = "==3.12.*"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = false
