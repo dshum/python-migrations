@@ -21,3 +21,7 @@ license = {text = "MIT"}
 
 [tool.pdm]
 distribution = false
+
+[tool.pdm.scripts]
+migrate = "pdm run python main.py migrate"
+command = "pdm run python main.py command"
