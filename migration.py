@@ -4,7 +4,7 @@ import os
 import click
 from click import Command
 
-from context import pass_context, Context
+from context import pass_context
 from utils import db
 from utils.style import console
 
@@ -26,7 +26,7 @@ class MigrationCLI(click.MultiCommand):
                     db.execute_query(conn, query)
             except Exception as e:
                 console.print(e, style="error")
-                console.print_exception(show_locals=True)
+                # console.print_exception(show_locals=True)
 
     def list_commands(self, ctx):
         rv = []

@@ -45,7 +45,7 @@ def get_databases(connection):
 
 
 def get_brands(connection):
-    query = "SELECT name, hosts, db_name, fin_group FROM brands ORDER BY name;"
+    query = "SELECT name, hosts, db_name, status, fin_group FROM brands ORDER BY name;"
     return execute_read_query(connection, query)
     # return [{"name": brand[0], "hosts": brand[1], "db_name": brand[2], "fin_group": brand[3]}
     #         for brand in brands]

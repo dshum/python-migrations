@@ -1,0 +1,3 @@
+queries = [
+    '''SELECT 1;''',
+]

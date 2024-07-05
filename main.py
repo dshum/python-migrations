@@ -1,9 +1,7 @@
-import traceback
-
 import click
 
 from command import CommandCLI
-from context import pass_context, Context
+from context import Context
 from migration import MigrationCLI
 from utils.style import console
 

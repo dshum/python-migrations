@@ -1,6 +1,5 @@
 import click
 
-from command import CommandCLI
 from config import Config
 from utils import db
 
